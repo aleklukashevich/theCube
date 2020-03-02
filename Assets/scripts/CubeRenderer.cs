@@ -6,6 +6,7 @@ public class CubeRenderer : MonoBehaviour
 {
     private GameObject dummy;
     private Camera cam;
+    private GameObject block;
     public static readonly int cubeSize = 8;
     private List<Colors> colorz = new List<Colors>();
     private int startPoint = 0;
@@ -21,6 +22,8 @@ public class CubeRenderer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        block = GameObject.FindGameObjectWithTag("block");
+        block.transform.localScale = new Vector3(0,0,0);
         cam = Camera.main;
         dummy = GameObject.FindGameObjectWithTag("Dummy");
         float c = Mathf.Pow(cubeSize, 3f)/4;
@@ -44,16 +47,22 @@ public class CubeRenderer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       cam.transform.position = new Vector3(cubeSize/2, cubeSize / 2, -10);
+       cam.transform.position = new Vector3(cubeSize/2, cubeSize / 2, -(cubeSize + 5));
     }
+
     private void BuildCube(int x, int y, int z) {
         if (z > 0) {
         }
-        GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        GameObject cube = Object.Instantiate(GameObject.FindGameObjectWithTag("block"));
         cube.transform.localScale = new Vector3(1, 1, 1);
         cube.transform.position = new Vector3(x==0 ? x : x, y==0 ? y : y, z==0 ? z : z);
-        cube.GetComponent<Renderer>().material.color = SelectColor();
-
+        Color c = SelectColor();
+        cube.transform.Find("top").GetComponent<Renderer>().material.color = c;
+        cube.transform.Find("bottom").GetComponent<Renderer>().material.color = c;
+        cube.transform.Find("left").GetComponent<Renderer>().material.color = c;
+        cube.transform.Find("right").GetComponent<Renderer>().material.color = c;
+        cube.transform.Find("front").GetComponent<Renderer>().material.color = c;
+        cube.transform.Find("back").GetComponent<Renderer>().material.color = c;
         cube.transform.parent = dummy.transform;
     }
 
@@ -61,13 +70,13 @@ public class CubeRenderer : MonoBehaviour
         Colors block = colorz[Random.Range(0, colorz.Count)];
         if (block.possibleCountOfSameColor <= 0)
         {
-            print("number is 0 finding new color");
+            //print("number is 0 finding new color");
             this.SelectColor();
         }
         else {
             block.possibleCountOfSameColor = block.possibleCountOfSameColor - 1;
         }
-        print("Got: " + block.color + " and available left: " + block.possibleCountOfSameColor);
+        //print("Got: " + block.color + " and available left: " + block.possibleCountOfSameColor);
         return block.color;
     }
 }

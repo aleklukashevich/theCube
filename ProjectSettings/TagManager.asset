@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Dummy
   - centre
+  - block
   layers:
   - Default
   - TransparentFX
