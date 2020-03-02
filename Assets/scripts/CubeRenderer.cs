@@ -4,49 +4,50 @@ using UnityEngine;
 
 public class CubeRenderer : MonoBehaviour
 {
-    private GameObject dummy;
+    private GameObject container;
     private Camera cam;
     private GameObject block;
+    private GameObject pivotPointObj;
     public static readonly int cubeSize = 8;
-    private List<Colors> colorz = new List<Colors>();
-    private int startPoint = 0;
-    private static List<Color> colors = new List<Color> {
-        new Color(255,0,0),//Red
-        new Color(0,0,255),//Blue
-        new Color(255,255,255),//White
-        new Color(0,128,0),//Green
-        //new Color(255,255,0),//Yellow
-        //new Color(255,165,0)//Orange
-    };
+    private List<Colors> colors = new List<Colors>();
 
     // Start is called before the first frame update
     void Start()
     {
         block = GameObject.FindGameObjectWithTag("block");
-        block.transform.localScale = new Vector3(0,0,0);
+        container = GameObject.FindGameObjectWithTag("Dummy");
+        pivotPointObj = GameObject.FindGameObjectWithTag("centre");
         cam = Camera.main;
-        dummy = GameObject.FindGameObjectWithTag("Dummy");
-        float c = Mathf.Pow(cubeSize, 3f)/4;
-        colorz.Add(new Colors(new Color(255, 0, 0), c));
-        colorz.Add(new Colors(new Color(0, 0, 255), c));
-        colorz.Add(new Colors(new Color(255, 255, 255), c));
-        colorz.Add(new Colors(new Color(0, 128, 0), c));
+        //set position for pivot point
+        pivotPointObj.transform.position = new Vector3(cubeSize / 2, cubeSize / 2, cubeSize / 2);
 
-        for (int z = startPoint; z < cubeSize; z++)
+        //make block invisible
+        block.transform.localScale = new Vector3(0, 0, 0);
+        
+        float possibleColorsNum = Mathf.Pow(cubeSize, 3f)/4;
+        colors.Add(new Colors(new Color(255, 0, 0), possibleColorsNum));
+        colors.Add(new Colors(new Color(0, 0, 255), possibleColorsNum));
+        colors.Add(new Colors(new Color(255, 255, 255), possibleColorsNum));
+        colors.Add(new Colors(new Color(0, 128, 0), possibleColorsNum));
+
+        //Generate cube
+        for (int z = 0; z < cubeSize; z++)
         {
-            for (int y = startPoint; y < cubeSize; y++)
+            for (int y = 0; y < cubeSize; y++)
             {
-                for (int x = startPoint; x < cubeSize; x++)
+                for (int x = 0; x < cubeSize; x++)
                 {
                     this.BuildCube(x, y, z);
                 }
             }
         }
+        print(container.transform.position);
     }
 
     // Update is called once per frame
     void Update()
     {
+        //TODO camera needs to be dynamicly set range to object depends on x y z length
        cam.transform.position = new Vector3(cubeSize/2, cubeSize / 2, -(cubeSize + 5));
     }
 
@@ -63,11 +64,11 @@ public class CubeRenderer : MonoBehaviour
         cube.transform.Find("right").GetComponent<Renderer>().material.color = c;
         cube.transform.Find("front").GetComponent<Renderer>().material.color = c;
         cube.transform.Find("back").GetComponent<Renderer>().material.color = c;
-        cube.transform.parent = dummy.transform;
+        cube.transform.parent = container.transform;
     }
 
     private Color SelectColor() {
-        Colors block = colorz[Random.Range(0, colorz.Count)];
+        Colors block = colors[Random.Range(0, colors.Count)];
         if (block.possibleCountOfSameColor <= 0)
         {
             //print("number is 0 finding new color");
