@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 14066375}
   m_Layer: 0
   m_Name: container
-  m_TagString: Dummy
+  m_TagString: container
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,6 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0c752d72bfaa4173a79519defb60d2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pivotCollider: {fileID: 0}
+  extraColliderValue: 0.1
 --- !u!4 &14066374
 Transform:
   m_ObjectHideFlags: 0
@@ -173,7 +175,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 14066372}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e50c8025935943f1b1b6a76ff8d0416, type: 3}
+  m_Script: {fileID: 11500000, guid: 69da08a0a8b8e406f94e4817f3ea1382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &83328128
@@ -640,8 +642,8 @@ GameObject:
   - component: {fileID: 811671515}
   - component: {fileID: 811671514}
   m_Layer: 0
-  m_Name: block
-  m_TagString: block
+  m_Name: part
+  m_TagString: part
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1009,11 +1011,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2136282141}
-  - component: {fileID: 2136282142}
   - component: {fileID: 2136282143}
   m_Layer: 0
-  m_Name: center
-  m_TagString: centre
+  m_Name: pivot
+  m_TagString: pivot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1033,19 +1034,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2136282142
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2136282140}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 8.5, y: 8.5, z: 8.5}
-  m_Center: {x: -0.5, y: -0.5, z: -0.5}
 --- !u!114 &2136282143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1055,6 +1043,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2136282140}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e50c8025935943f1b1b6a76ff8d0416, type: 3}
+  m_Script: {fileID: 11500000, guid: 20f1eec3fe69c4e349f23359367416a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

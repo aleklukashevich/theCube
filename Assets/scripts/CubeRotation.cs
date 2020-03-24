@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class CubeRotation : MonoBehaviour
 {
-    void Start()
-    {
-    }
+	float rotationSpeed = 15f;
 
-    // Update is called once per frame
-    void OnMouseDrag()
-    {
-        transform.eulerAngles = Vector3.Lerp(this.transform.eulerAngles, new Vector3(0, -90f, 0), 2 * Time.deltaTime);
-    }
+	void OnMouseDrag()
+	{
+		float XaxisRotation = Input.GetAxis("Mouse X") * rotationSpeed;
+		float YaxisRotation = Input.GetAxis("Mouse Y") * rotationSpeed;
+		// select the axis by which you want to rotate the GameObject
+		transform.Rotate(Vector3.down, XaxisRotation, Space.World);
+		transform.Rotate(Vector3.right, YaxisRotation, Space.World);
+	}
 }
